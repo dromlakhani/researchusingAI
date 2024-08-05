@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step-by-Step Process of Writing a Systematic Review using AI</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #FAFAFA;
+            color: #212121;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #3F51B5;
+            color: white;
+            padding: 10px 20px;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.2em;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        
+        .reveal {
+            height: calc(100vh - 50px);
+            margin-top: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+        .slides {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .slides > section {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            margin: 10px;
+            max-width: 100%;
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+        }
+        .slides > section.present {
+            display: block;
+        }
+        .app-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .app-details {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .app-logo {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo-image {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .app-link, .video-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        .app-link {
+            background: #3F51B5;
+            color: white;
+        }
+        .app-link:hover {
+            background: #303F9F;
+        }
+        .video-button {
+            background: #F44336;
+            color: white;
+        }
+        .video-button:hover {
+            background: #D32F2F;
+        }
+        .video-button::before {
+            content: '\f167';
+            font-family: 'Font Awesome 5 Brands';
+            margin-right: 5px;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .navigation button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3F51B5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+        }
+        .navigation button:hover {
+            background-color: #303F9F;
+        }
+        h1 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #3F51B5;
+        }
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #3F51B5;
+        }
+        p {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+        .footer {
+            position: fixed;
+            bottom: 5px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+        }
+        .footer a {
+            color: #1976D2;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (min-width: 768px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .slides > section {
+                padding: 40px;
+                margin: 20px;
+            }
+            .app-info {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+            .app-details {
+                width: 60%;
+                margin-bottom: 0;
+            }
+            .app-logo {
+                width: 35%;
+            }
+            .logo-image {
+                width: 200px;
+                height: 200px;
+            }
+            .app-link, .video-button {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
+            h1 {
+                font-size: 3em;
+            }
+            h2 {
+                font-size: 2.2em;
+            }
+            p {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Step-by-Step Process of Writing a Systematic Review using AI</h1>
+    </header>
+
+    <div class="reveal">
+        <div class="slides">
+            <div class="navigation">
+                <button id="prevBtn">Previous</button>
+                <button id="nextBtn">Next</button>
+            </div>
+            
+            <!-- Home Section -->
+            <section id="home" class="present">
+                <h1>Step-by-Step Process of Writing a Systematic Review using AI</h1>
+                <p style="font-size: 1.5em;"><strong>by Dr. Om J Lakhani</strong></p>
+                <p style="font-size: 1.3em;">MD (Medicine), DrNB (Endocrinology)</p>
+                <p style="font-size: 1.3em;"><em>Endocrinologist / Technocrinologist</em></p>
+            </section>
+
+            <section>
+                <div style="background: #eee; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; margin: 0 auto; border-radius: 10px;">
+                    <p style="font-size: 1.5em;"><strong>QR Code Placeholder</strong></p>
+                </div>
+                <p style="font-size: 1.3em; margin-top: 30px;">This is an interactive presentation. You can follow this presentation from the link given in the QR code above.</p>
+            </section>
+            
+            <section>
+                <h2>Dr. Om J Lakhani</h2>
+                <ol style="font-size: 1.3em; text-align: left; max-width: 800px; margin: 0 auto;">
+                    <li>Starting with the Research Question</li>
+                    <li>Title and Outline</li>
+                    <li>Research that Pertains to the Outline</li>
+                </ol>
+            </section>
+            
+            <section>
+                <h2>Dr. Amit Kumar Dey</h2>
+                <ol style="font-size: 1.3em; text-align: left; max-width: 800px; margin: 0 auto;" start="4">
+                    <li>Writing the first draft based on the research and outline</li>
+                    <li>Fine tuning and Making the final draft</li>
+                </ol>
+            </section>
+            
+            <section>
+                <h2>Dr. Avneesh Khare</h2>
+                <ol style="font-size: 1.3em; text-align: left; max-width: 800px; margin: 0 auto;" start="6">
+                    <li>Peer Review of the article using AI</li>
+                </ol>
+            </section>
+            
+            <section>
+                <h2>Dr. Rutul Thakkar</h2>
+                <ol style="font-size: 1.3em; text-align: left; max-width: 800px; margin: 0 auto;" start="7">
+                    <li>Manual review of the paper and Human criticism</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Research Question</h2>
+                <p style="font-size: 1.5em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    Is Dapagliflozin useful in management of NAFLD / NASH / MASH / MASLD spectrum?
+                </p>
+            </section>
+
+            <section>
+                <h2>Title (Using AI)</h2>
+                <h3>Tool to Use: ChatGPT / Pyraxio (Text chat)</h3>
+                <h4>Prompt:</h4>
+                <div style="position: relative; max-width: 800px; margin: 20px auto; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 1em; text-align: left; margin: 0;">You are an academic medical researcher
+
+I am writing a narrative review research paper with the research question "Is Dapagliflozin useful in the management of NAFLD / NASH / MASH / MASLD spectrum ?"
+
+Give me suggestions for three titles for the research paper
+
+Remember nowadays people are using the terminology of MASLD in place of NAFLD / NASH / MASH etc so make the title relevant
+
+Also, they need to be interesting so that readers want to read the article and be interested in them
+
+The title needs to align with the expectations of a medical journal</pre>
+                    <button onclick="copyToClipboard(this)" style="position: absolute; top: 5px; right: 5px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">Copy</button>
+                </div>
+            </section>
+
+            <script>
+                function copyToClipboard(button) {
+                    const text = button.previousElementSibling.textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalText = button.textContent;
+                        button.textContent = 'Copied!';
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                        }, 2000);
+                    });
+                }
+            </script>
+
+            <section>
+                <h2>Video Demonstration</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/PORL_D3fYRY?si=l9vLmdTOKjpxSLsA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Output from AI</h2>
+                <ol style="font-size: 1.2em; text-align: left; max-width: 800px; margin: 20px auto;">
+                    <li>"Dapagliflozin in Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD): A Comprehensive Review of Efficacy and Potential Mechanisms"</li>
+                    <li>"Beyond Glycemic Control: Exploring Dapagliflozin's Role in the Management of Metabolic Dysfunction-Associated Steatotic Liver Disease"</li>
+                    <li>"Dapagliflozin: A Promising Therapeutic Avenue for Metabolic Dysfunction-Associated Steatotic Liver Disease? A Narrative Review"</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>The Final Choice of Title</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    "Dapagliflozin in Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD): A Comprehensive Review of Efficacy and Potential Mechanisms"
+                </p>
+            </section>
+
+            <section>
+                <h2>Next Step: Outline</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    Proceed to create an outline for the comprehensive review based on the chosen title.
+                </p>
+            </section>
+
+            <section>
+                <h2>Tool: ChatGPT / Pyraxio (Text chat)</h2>
+                <h3>Prompt:</h3>
+                <div style="position: relative; max-width: 800px; margin: 20px auto; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 1em; text-align: left; margin: 0;">You are an academic medical researcher 
+
+I am writing a narrative review on the topic : Dapagliflozin in Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD): A Comprehensive Review of Efficacy and Potential Mechanisms
+
+Give me an outline for the subheadings that I need to include in the narrative review. Try to make it comprehensive 
+
+The readers are expert Endocrinologist , Diabetologists and Hepatologists</pre>
+                    <button onclick="copyToClipboard(this)" style="position: absolute; top: 5px; right: 5px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">Copy</button>
+                </div>
+            </section>
+
+            <section>
+                <h2>Video Demonstration</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/o5Y9D5THiO4?si=O43UT3lTHiU8R5NK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Output from AI</h2>
+                <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 15px; margin-top: 20px; text-align: left;">
+                    <h3>Introduction</h3>
+                    <ol>
+                        <li>Overview of MASLD</li>
+                        <li>Brief introduction to Dapagliflozin and SGLT2 inhibitors</li>
+                        <li>Rationale for investigating Dapagliflozin in MASLD</li>
+                    </ol>
+                    <h3>Epidemiology and Pathophysiology of MASLD</h3>
+                    <ol>
+                        <li>Prevalence and risk factors</li>
+                        <li>Metabolic syndrome and MASLD</li>
+                        <li>Progression from MASLD to MASH and cirrhosis</li>
+                    </ol>
+                    <h3>Dapagliflozin: Pharmacological Profile</h3>
+                    <ol>
+                        <li>Mechanism of action</li>
+                        <li>Pharmacokinetics and pharmacodynamics</li>
+                        <li>Approved indications and safety profile</li>
+                    </ol>
+                    <h3>Clinical Evidence: Dapagliflozin in MASLD</h3>
+                    <ol>
+                        <li>Randomized controlled trials</li>
+                        <li>Observational studies and real-world evidence</li>
+                        <li>Meta-analyses and systematic reviews</li>
+                        <li>Ongoing clinical trials</li>
+                    </ol>
+                    <h3>Efficacy Outcomes</h3>
+                    <ol>
+                        <li>Effects on liver enzymes (ALT, AST, GGT)</li>
+                        <li>Impact on liver fat content (assessed by imaging techniques)</li>
+                        <li>Histological improvements</li>
+                        <li>Effects on fibrosis markers and scores</li>
+                        <li>Cardiovascular and metabolic outcomes in MASLD patients</li>
+                    </ol>
+                    <h3>Potential Mechanisms of Action in MASLD</h3>
+                    <ol>
+                        <li>Glucose homeostasis and insulin sensitivity</li>
+                        <li>Lipid metabolism and hepatic de novo lipogenesis</li>
+                        <li>Oxidative stress and inflammation</li>
+                        <li>Mitochondrial function and energy metabolism</li>
+                        <li>Gut microbiome modulation</li>
+                        <li>Effects on adipose tissue and adipokines</li>
+                        <li>Uric acid metabolism and its role in MASLD</li>
+                    </ol>
+                    <h3>Comparison with Other Therapeutic Approaches</h3>
+                    <ol>
+                        <li>Lifestyle interventions</li>
+                        <li>Other antidiabetic medications (e.g., GLP-1 receptor agonists, pioglitazone)</li>
+                        <li>Emerging therapies for MASLD/MASH</li>
+                    </ol>
+                    <h3>Safety Considerations</h3>
+                    <ol>
+                        <li>Adverse events profile in MASLD patients</li>
+                        <li>Drug interactions and contraindications</li>
+                        <li>Special populations (renal impairment, hepatic impairment, elderly)</li>
+                    </ol>
+                    <h3>Clinical Implications and Future Directions</h3>
+                    <ol>
+                        <li>Potential role of Dapagliflozin in MASLD management guidelines</li>
+                        <li>Combination therapy approaches</li>
+                        <li>Areas for future research and ongoing trials</li>
+                    </ol>
+                    <h3>Challenges and Limitations</h3>
+                    <ol>
+                        <li>Diagnostic challenges in MASLD</li>
+                        <li>Limitations of current clinical evidence</li>
+                        <li>Barriers to implementation in clinical practice</li>
+                    </ol>
+                    <h3>Conclusion</h3>
+                    <ol>
+                        <li>Summary of key findings</li>
+                        <li>Clinical significance and implications for practice</li>
+                        <li>Future perspectives</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section>
+                <h2>Next Step: Find research article and content for each point</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    We will provide output to Dr. Amit as follows:
+                </p>
+            </section>
+
+            <section>
+                <h2>Key points bullet points</h2>
+                <ul style="font-size: 1.2em; text-align: left; max-width: 800px; margin: 20px auto;">
+                    <li>Summarized key points for each section of the outline</li>
+                    <li>Concise and informative bullet points</li>
+                    <li>Highlighting the most important information</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Relevant articles in a table form with links and references</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    A comprehensive table containing:
+                </p>
+                <ul style="font-size: 1.2em; text-align: left; max-width: 800px; margin: 20px auto;">
+                    <li>Article titles</li>
+                    <li>Authors</li>
+                    <li>Publication dates</li>
+                    <li>Journal names</li>
+                    <li>Links to full-text articles</li>
+                    <li>Brief descriptions or relevance to our review</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Tools we will be using</h2>
+                <ol style="font-size: 1.3em; text-align: left; max-width: 800px; margin: 20px auto;">
+                    <li>Perplexity
+                        <ul>
+                            <li>AI-powered search engine</li>
+                            <li>Provides up-to-date information and research</li>
+                            <li><a href="https://www.perplexity.ai" target="_blank">perplexity.ai</a></li>
+                        </ul>
+                    </li>
+                    <li>Storm by Stanford
+                        <ul>
+                            <li>Advanced research tool</li>
+                            <li>Helps in analyzing and synthesizing scientific literature</li>
+                            <li><a href="https://storm-project.stanford.edu/" target="_blank">https://storm-project.stanford.edu/</a></li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Start with STORM</h2>
+                <h3>Main Prompt</h3>
+                <div style="position: relative; max-width: 800px; margin: 20px auto; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 1em; text-align: left; margin: 0;">Dapagliflozin in Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) A Comprehensive Review of Efficacy and Potential Mechanisms</pre>
+                    <button onclick="copyToClipboard(this)" style="position: absolute; top: 5px; right: 5px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">Copy</button>
+                </div>
+            </section>
+
+            <section>
+                <h3>Detailed Prompt</h3>
+                <div style="position: relative; max-width: 800px; margin: 20px auto; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 1em; text-align: left; margin: 0;">I am writing a narrative review on the topic. My inteded audience are expert endocrinologists, diabetologists and hepatologists. I want the output under the following sections Introduction, Overview of MASLD, Brief introduction to Dapagliflozin and SGLT2 inhibitors, Rationale for investigating Dapagliflozin in MASLD, Epidemiology and Pathophysiology of MASLD, Prevalence and risk factors, Metabolic syndrome and MASLD, Progression from MASLD to MASH and cirrhosis, Dapagliflozin: Pharmacological Profile, Mechanism of action, Pharmacokinetics and pharmacodynamics, Approved indications and safety profile, Clinical Evidence: Dapagliflozin in MASLD, Randomized controlled trials, Observational studies and real-world evidence, Meta-analyses and systematic reviews, Ongoing clinical trials, Efficacy Outcomes, Effects on liver enzymes (ALT, AST, GGT), Impact on liver fat content (assessed by imaging techniques), Histological improvements, Effects on fibrosis markers and scores, Cardiovascular and metabolic outcomes in MASLD patients, Potential Mechanisms of Action in MASLD, Glucose homeostasis and insulin sensitivity, Lipid metabolism and hepatic de novo lipogenesis, Oxidative stress and inflammation, Mitochondrial function and energy metabolism, Gut microbiome modulation, Effects on adipose tissue and adipokines, Uric acid metabolism and its role in MASLD, Comparison with Other Therapeutic Approaches, Lifestyle interventions, Other antidiabetic medications (e.g., GLP-1 receptor agonists, pioglitazone), Emerging therapies for MASLD/MASH, Safety Considerations, Adverse events profile in MASLD patients, Drug interactions and contraindications, Special populations (renal impairment, hepatic impairment, elderly), Clinical Implications and Future Directions, Potential role of Dapagliflozin in MASLD management guidelines, Combination therapy approaches, Areas for future research and ongoing trials, Challenges and Limitations, Diagnostic challenges in MASLD, Limitations of current clinical evidence, Barriers to implementation in clinical practice, Conclusion, Summary of key findings, Clinical significance and implications for practice, Future perspectives</pre>
+                    <button onclick="copyToClipboard(this)" style="position: absolute; top: 5px; right: 5px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">Copy</button>
+                </div>
+            </section>
+
+            <section>
+                <h2>Video Demonstration</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/27SuUEhanu4?si=oHkSd4d38k1JI1NY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Output File</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    <a href="https://drive.google.com/file/d/1ow03T3Xo6LU2BWFG6dBRBsL0Tcd97JZN/view?usp=drive_link" target="_blank">View Output File</a>
+                </p>
+            </section>
+
+            <section>
+                <h2>Perplexity</h2>
+            </section>
+
+            <section>
+                <h2>Prompt</h2>
+                <div style="position: relative; max-width: 800px; margin: 20px auto; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 1em; text-align: left; margin: 0;">
+                        
+                        I am writing a narrative review article with the title :
+                        
+                        "Dapagliflozin in Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) A Comprehensive Review of Efficacy and Potential Mechanisms"
+                        
+                        MASLD was previously called NAFLD / NASH / MAFLD / MASH
+                        
+                        The intended audience are Endocrinologists , Diabetologists and Hepatologists
+                        
+                        This is the outline for the article :
+                        
+                        
+                        [Article outline]
+                            
+                            # Introduction
+                            
+                            
+                            1.1. Overview of MASLD 
+                            1.2. Brief introduction to Dapagliflozin and SGLT2 inhibitors 
+                            1.3. Rationale for investigating Dapagliflozin in MASLD 
+                            
+                            # Epidemiology and Pathophysiology of MASLD
+                            
+                            2.1. Prevalence and risk factors 
+                            2.2. Metabolic syndrome and MASLD 
+                            2.3. Progression from MASLD to MASH and cirrhosis 
+                            
+                            # Dapagliflozin: Pharmacological Profile
+                            
+                            3.1. Mechanism of action 
+                            3.2. Pharmacokinetics and pharmacodynamics 
+                            3.3. Approved indications and safety profile
+                            
+                            
+                            
+                            # Clinical Evidence: Dapagliflozin in MASLD
+                            
+                            4.1. Randomized controlled trials 
+                            4.2. Observational studies and real-world evidence 
+                            4.3. Meta-analyses and systematic reviews 
+                            4.4. Ongoing clinical trials 5. Efficacy Outcomes 
+                            
+                            # Efficacy Outcomes
+                            
+                            
+                            5.1. Effects on liver enzymes (ALT, AST, GGT) 
+                            5.2. Impact on liver fat content (assessed by imaging techniques) 
+                            5.3. Histological improvements 
+                            5.4. Effects on fibrosis markers and scores 
+                            5.5. Cardiovascular and metabolic outcomes in MASLD patients 
+                            
+                            
+                            # Potential Mechanisms of Action in MASLD
+                            
+                            6.1. Glucose homeostasis and insulin sensitivity 
+                            6.2. Lipid metabolism and hepatic de novo lipogenesis 
+                            6.3. Oxidative stress and inflammation 6.4. Mitochondrial function and energy metabolism 
+                            6.5. Gut microbiome modulation 
+                            6.6. Effects on adipose tissue and adipokines 
+                            6.7. Uric acid metabolism and its role in MASLD 
+                            
+                            # Comparison with Other Therapeutic Approaches
+                            
+                            7.1. Lifestyle interventions 
+                            7.2. Other antidiabetic medications (e.g., GLP-1 receptor agonists, pioglitazone) 
+                            7.3. Emerging therapies for MASLD/MASH 
+                            
+                            # Safety Considerations
+                            
+                            8.1. Adverse events profile in MASLD patients 
+                            8.2. Drug interactions and contraindications 
+                            8.3. Special populations (renal impairment, hepatic impairment, elderly) 
+                            
+                            
+                            # Clinical Implications and Future Directions
+                            
+                            9.1. Potential role of Dapagliflozin in MASLD management guidelines 
+                            9.2. Combination therapy approaches 9.3. Areas for future research and ongoing trials 
+                            
+                            
+                            # Challenges and Limitations
+                            
+                            10.1. Diagnostic challenges in MASLD 
+                            10.2. Limitations of current clinical evidence 
+                            10.3. Barriers to implementation in clinical practice 
+                            
+                            # Conclusion
+                            
+                            11.1. Summary of key findings 
+                            1.2. Clinical significance and implications for practice 
+                            11.3. Future perspectives 
+                            
+                            [/Article outline]
+                            
+                            [Search Instructions]
+                                
+                                Search for three bullet points for each of the points in that I can add to each of the points in the outline 
+                                
+                                Search from Pubmed and academic journals
+                                
+                                Have a biased towards recent articles . Today's date is 31 Jul 2024
+                                
+                                [/Search Instructions]
+                                
+                                [Output instruction]
+                                    
+                                    Give output  in the following manner
+                                    
+                                    1. Title from outline
+                                    2. Markdown table with following columns
+                                    
+                                    a) Serial number
+                                    b) Key bullet point
+                                    c) Reference link
+                                    d) Reference in vancouver format
+                                    
+                                    
+                                    
+                                    [/Output instruction]
+
+                    </pre>
+                    <button onclick="copyToClipboard(this)" style="position: absolute; top: 5px; right: 5px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">Copy</button>
+                </div>
+            </section>
+
+            <section>
+                <h2>Output</h2>
+                <!-- Output content will be added later -->
+            </section>
+
+            <section>
+                <h2>Video</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/TxS-yLsXyI8?si=ibMCsbkQCIuyj3DV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Going Ahead....</h2>
+            </section>
+
+            <section>
+                <h2>Video</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/MqHlc4JQBRo?si=JhQ4ZUsND1vvoMkF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Perplexity Convert to Page</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/fHiv15g3tnU?si=NZfAUp0mdJ-gARt1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Link to the Perplexity page</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    <a href="https://www.perplexity.ai/page/i-am-writing-a-narrative-revie-oytDqx8DTHSnhykPcyEmgA" target="_blank">View Perplexity Page</a>
+                </p>
+            </section>
+
+            <section>
+                <h2>Link to the Perplexity Page</h2>
+                <p style="font-size: 1.3em; text-align: center; max-width: 800px; margin: 20px auto;">
+                    <a href="https://www.perplexity.ai/page/i-am-writing-a-narrative-revie-oytDqx8DTHSnhykPcyEmgA" target="_blank">View Perplexity Page</a>
+                </p>
+            </section>
+
+            <section>
+                <h2>Google Notebook LM</h2>
+            </section>
+
+            <section>
+                <h2>Initial Set-up Video</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/BHCJ6Pkjj30?si=cCU7lTUzMNeF6K1q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </section>
+
+            <section>
+                <h2>Using the Notebook LM</h2>
+                <h3>Prompt</h3>
+                <div style="position: relative; max-width: 800px; margin: 20px auto; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 5px; padding: 15px;">
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; font-size: 1em; text-align: left; margin: 0;">
+I am writing a narrative review article with the title :
+
+"Dapagliflozin in Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD) A Comprehensive Review of Efficacy and Potential Mechanisms"
+
+MASLD was previously called NAFLD / NASH / MAFLD / MASH
+
+The intended audience are Endocrinologists , Diabetologists and Hepatologists
+
+The relevant literature is uploaded
+
+Please write the introduction to the same 
+
+Make it about 300 words 
+                    </pre>
+                    <button onclick="copyToClipboard(this)" style="position: absolute; top: 5px; right: 5px; background-color: #4CAF50; color: white; border: none; border-radius: 3px; padding: 5px 10px; cursor: pointer;">Copy</button>
+                </div>
+            </section>
+
+            <section>
+                <h2>Video</h2>
+                <div class="video-container">
+                    <video controls>
+                        <source src="/Users/omlakhani/Library/Group Containers/UBF8T346G9.OneDriveSyncClientSuite/OneDrive.noindex/OneDrive/AFTER DNB 2017/CONFERENCES CME PRESENTATION/PRESENTATIONS 2021/PPT OUTLINE 2023/July 2024/CleanShot 2024-08-03 at 07.17.31.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </section>
+
+            <section>
+                <h2>Output</h2>
+                <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 15px; margin-top: 20px; text-align: left;">
+                    <p>Metabolic dysfunction-associated steatotic liver disease (MASLD), previously termed NAFLD, is a prevalent liver condition characterized by an excessive buildup of fat in the liver. This comprehensive review aims to explore the efficacy and potential mechanisms of dapagliflozin in managing MASLD. Affecting nearly 30% of the global population, MASLD is closely linked to obesity and type 2 diabetes. It encompasses a range of liver conditions, from simple steatosis to more severe forms like MASH (previously NASH), fibrosis, cirrhosis, and even hepatocellular carcinoma.</p>
+
+                    <p>Dapagliflozin, a sodium-glucose cotransporter-2 (SGLT2) inhibitor, was initially approved for treating type 2 diabetes. It works by inhibiting SGLT2 in the kidneys, which reduces glucose reabsorption and increases urinary glucose excretion, thus lowering blood sugar levels. This mechanism is independent of insulin, making it effective even in patients with reduced β-cell function. Beyond glycemic control, dapagliflozin demonstrates benefits like cardiovascular and renal protection. It has shown potential in improving liver function and metabolic parameters in individuals with MASLD.</p>
+
+                    <p>Several factors make dapagliflozin a promising candidate for MASLD treatment. Its effects on insulin sensitivity and lipid metabolism are particularly relevant. Preclinical studies indicate that SGLT2 inhibitors can reduce hepatic steatosis and inflammation. Additionally, the dual advantages of glycemic control and potential liver-specific effects warrant further investigation of dapagliflozin for MASLD. This review will examine various clinical evidence, including randomized controlled trials, observational studies, and meta-analyses, to evaluate the efficacy of dapagliflozin in improving liver health.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Summary</h2>
+                <ul style="font-size: 1.2em; text-align: left; max-width: 800px; margin: 20px auto;">
+                    <li>We used AI for Medical Research</li>
+                    <li>We made an outline of the paper using ChatGPT/ Claude</li>
+                    <li>We did the research on the internet using Perplexity</li>
+                    <li>We also used STORM by Standford to give us a large research overview on the topic</li>
+                    <li>Finally, we used the Google Notebook LM to collate all the data and wrote the introduction using the same</li>
+                </ul>
+            </section>
+            
+            <section class="section">
+                <div class="app-info">
+                    <div class="app-details">
+                        <h2 style="font-size: 3em; margin-bottom: 0.5em;">Thank You!</h2>
+                        <p style="font-size: 1.5em; margin-bottom: 1em;"><strong>For Your Attention and Participation</strong></p>
+                        <p style="font-size: 1.2em;">Dr. Om J Lakhani</p>
+                        <p style="font-size: 1em;">MD (Medicine), DrNB (Endocrinology)</p>
+                        <p style="font-size: 1em;">Endocrinologist / Technocrinologist</p>
+                    </div>
+                    <div class="app-logo">
+                        <img src="https://i.ibb.co/gT1XX3X/doctors-AI-logo.png" alt="Thank You" class="logo-image" style="width: 200px; height: 200px;">
+                    </div>
+                </div>
+            </section>
+
+            
+            <!-- LinkedIn Slide -->
+            <section class="section">
+                <div class="app-info">
+                    <div class="app-details">
+                        <h2>LinkedIn</h2>
+                        <p><strong>Connect with Dr. Om J Lakhani</strong></p>
+                        <p>Stay updated with our latest professional insights and network with healthcare professionals.</p>
+                    </div>
+                    <div class="app-logo">
+                        <img src="https://i.ibb.co/QpBQpWL/Clean-Shot-2024-07-26-at-13-55-04-2x.png" alt="LinkedIn Profile" class="logo-image" style="width: 100%; max-width: 600px; height: auto;">
+                        <a href="https://www.linkedin.com/feed/" class="app-link" target="_blank">Visit LinkedIn Profile</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Twitter Slide -->
+            <section class="section">
+                <div class="app-info">
+                    <div class="app-details">
+                        <h2>Twitter</h2>
+                        <p><strong>Follow @omlakhani</strong></p>
+                        <p>Get real-time updates, share your thoughts, and engage with our community of medical professionals.</p>
+                    </div>
+                    <div class="app-logo">
+                        <img src="https://i.ibb.co/j8H5xQ8/Clean-Shot-2024-07-26-at-13-55-11-2x.png" alt="Twitter Profile" class="logo-image" style="width: 100%; max-width: 600px; height: auto;">
+                        <a href="https://x.com/omlakhani" class="app-link" target="_blank">Follow on Twitter</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- YouTube Slide -->
+            <section class="section">
+                <div class="app-info">
+                    <div class="app-details">
+                        <h2>YouTube</h2>
+                        <p><strong>Subscribe to Endocrinology India</strong></p>
+                        <p>Explore in-depth medical discussions, educational content, and the latest updates in endocrinology.</p>
+                    </div>
+                    <div class="app-logo">
+                        <img src="https://i.ibb.co/yncc205/Clean-Shot-2024-07-26-at-13-56-04-2x.png" alt="YouTube Channel" class="logo-image" style="width: 100%; max-width: 600px; height: auto;">
+                        <a href="https://www.youtube.com/@EndocrinologyIndia" class="app-link" target="_blank">Subscribe to Our Channel</a>
+                    </div>
+                </div>
+            </section>
+
+                                    
+        </div>
+    </div>
+    
+    <footer class="footer">
+        © Dr. Om J Lakhani | <a href="https://x.com/omlakhani" target="_blank">Follow on Twitter</a>
+    </footer>
+    
+    <script>
+        // Simple reveal.js-like functionality
+        (function() {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slides > section');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            function showSlide(index) {
+                slides[currentSlide].classList.remove('present');
+                slides[index].classList.add('present');
+                currentSlide = index;
+                updateButtonStates();
+            }
+            
+            function nextSlide() {
+                showSlide((currentSlide + 1) % slides.length);
+            }
+            
+            function prevSlide() {
+                showSlide((currentSlide - 1 + slides.length) % slides.length);
+            }
+            
+            function updateButtonStates() {
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === slides.length - 1;
+            }
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            });
+            
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            showSlide(0);
+        })();
+    </script>
+</body>
+</html>
